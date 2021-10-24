@@ -5,11 +5,10 @@ plugins {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "31.0.0"
 
     defaultConfig {
         applicationId "com.diaryapp"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"

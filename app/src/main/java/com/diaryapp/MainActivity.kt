@@ -1,12 +1,23 @@
 package com.diaryapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.DatePicker
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 
+
 class MainActivity : AppCompatActivity() {
+
+    /**
+     * Main Screen should be list of entries with a + at the bottom to create a new entry
+     * The fragments can be used on the date selector view and the text editor (which could contain a rich text editor
+     */
+
+    //TODO move the diary writting away from the main activity
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -14,8 +25,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_page1))
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_page2))
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.datePicker))
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.entryEditor))
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
         val viewPager = findViewById<ViewPager>(R.id.pager)

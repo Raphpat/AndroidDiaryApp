@@ -13,8 +13,8 @@ internal class PagerAdapter(
 ) {
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> Page1Fragment()
-            1 -> Page2Fragment()
+            0 -> DatePickerFragment()
+            1 -> TextEditorFragment()
             else -> Fragment()
         }
     }
