@@ -23,6 +23,7 @@ class TextEditorFragment : Fragment() {
 //        }
 //    }
 
+    //TODO Add functionality to save button
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

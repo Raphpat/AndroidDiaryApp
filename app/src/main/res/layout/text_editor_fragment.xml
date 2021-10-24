@@ -36,7 +36,8 @@
             app:srcCompat="@android:drawable/ic_menu_save"
             android:id="@+id/floatingSaveButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:backgroundTint="@color/colorPrimary"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
