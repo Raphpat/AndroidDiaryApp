@@ -9,6 +9,7 @@ import android.widget.DatePicker
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import java.time.LocalDate
 
 class DatePickerFragment : Fragment() {
 
@@ -23,12 +24,8 @@ class DatePickerFragment : Fragment() {
 
         val datePicker = view.findViewById<DatePicker>(R.id.datePicker)
         datePicker.setOnDateChangedListener { _, year, monthOfYear, dayOfMonth ->
-            // monthOfYear starts at 0 so add one, and if it needs a 0 infront add it
-            var month = (monthOfYear + 1).toString()
-            if (month.length < 2) {
-                month = "0$month"
-            }
-            viewModel.setDate(getString(R.string.date, dayOfMonth, month, year))
+            val date = LocalDate.of(year, monthOfYear + 1, dayOfMonth)
+            viewModel.setDate(date)
         }
         return view
     }
