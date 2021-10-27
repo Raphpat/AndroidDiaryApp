@@ -3,5 +3,6 @@
     <string name="datePicker">Pick a date</string>
     <string name="entryEditor">Write your entry</string>
     <string name="save_diary_entry">Save diary entry</string>
-    <string name="date">%1$d/%2$d/%3$d</string>
+    <string name="date">%1$d/%2$s/%3$d</string>
+    <string name="save_note">Save Note</string>
 </resources>
