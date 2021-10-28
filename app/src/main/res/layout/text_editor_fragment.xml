@@ -12,8 +12,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/dateReminder"
-            app:layout_constraintBottom_toTopOf="@id/editTextTextMultiLine"
+            app:layout_constraintBottom_toTopOf="@id/noteContent"
             app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:gravity="start|top"
+            android:ems="10"
+            android:id="@+id/noteTitle"
+            app:layout_constraintTop_toBottomOf="@id/dateReminder"
+            app:layout_constraintBottom_toTopOf="@+id/noteContent"/>
 
     <EditText
             android:layout_width="match_parent"
@@ -21,9 +31,9 @@
             android:inputType="textMultiLine"
             android:gravity="start|top"
             android:ems="10"
-            android:id="@+id/editTextTextMultiLine"
+            android:id="@+id/noteContent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dateReminder"/>
+            app:layout_constraintTop_toBottomOf="@id/noteTitle"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:contentDescription="@string/save_diary_entry"

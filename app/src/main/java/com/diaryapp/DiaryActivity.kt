@@ -3,6 +3,7 @@ package com.diaryapp
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.activityViewModels
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 
@@ -39,4 +40,6 @@ class DiaryActivity: AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
     }
+
+
 }

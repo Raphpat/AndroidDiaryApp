@@ -13,9 +13,13 @@ import java.time.LocalDate
 
 class DatePickerFragment : Fragment() {
 
-    private val viewModel: FragmentViewModel by activityViewModels()
+    private val viewModel: FragmentViewModel by activityViewModels{
+        FragmentViewModelFactory(
+            (activity?.application as DiaryApplication).database
+                .noteDao()
+        )
+    }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,7 +29,7 @@ class DatePickerFragment : Fragment() {
         val datePicker = view.findViewById<DatePicker>(R.id.datePicker)
         datePicker.setOnDateChangedListener { _, year, monthOfYear, dayOfMonth ->
             val date = LocalDate.of(year, monthOfYear + 1, dayOfMonth)
-            viewModel.setDate(date)
+            viewModel.setSelectedDate(date)
         }
         return view
     }
