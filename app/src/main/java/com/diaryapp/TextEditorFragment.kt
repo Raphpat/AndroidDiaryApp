@@ -12,7 +12,6 @@ import androidx.fragment.app.activityViewModels
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-@RequiresApi(Build.VERSION_CODES.O)
 class TextEditorFragment : Fragment() {
 
     private val dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy")
