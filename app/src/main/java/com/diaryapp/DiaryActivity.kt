@@ -3,7 +3,6 @@ package com.diaryapp
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.activityViewModels
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 
@@ -20,8 +19,8 @@ class DiaryActivity: AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.datePicker))
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.entryEditor))
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.date_picker))
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.entry_editor))
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
         val viewPager = findViewById<ViewPager>(R.id.pager)

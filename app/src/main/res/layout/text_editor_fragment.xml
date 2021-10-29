@@ -8,12 +8,14 @@
 
     <TextView
             android:text="TextView"
-            android:layout_marginStart="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/dateReminder"
-            app:layout_constraintBottom_toTopOf="@id/noteContent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            android:textStyle="bold"/>
 
     <EditText
             android:layout_width="match_parent"
@@ -22,8 +24,9 @@
             android:gravity="start|top"
             android:ems="10"
             android:id="@+id/noteTitle"
-            app:layout_constraintTop_toBottomOf="@id/dateReminder"
-            app:layout_constraintBottom_toTopOf="@+id/noteContent"/>
+            android:hint="@string/entry_title"
+            app:layout_constraintTop_toBottomOf="@+id/dateReminder"
+            android:layout_marginTop="8dp"/>
 
     <EditText
             android:layout_width="match_parent"
@@ -32,8 +35,9 @@
             android:gravity="start|top"
             android:ems="10"
             android:id="@+id/noteContent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/noteTitle"/>
+            android:hint="@string/your_diary_entry"
+            app:layout_constraintTop_toBottomOf="@+id/noteTitle"
+            android:layout_marginTop="8dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:contentDescription="@string/save_diary_entry"

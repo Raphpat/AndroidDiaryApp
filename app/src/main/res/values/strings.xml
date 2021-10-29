@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">My Diary</string>
-    <string name="datePicker">Pick a date</string>
-    <string name="entryEditor">Write your entry</string>
+    <string name="date_picker">Pick a date</string>
+    <string name="entry_editor">Write your entry</string>
     <string name="save_diary_entry">Save diary entry</string>
     <string name="date">%1$d/%2$s/%3$d</string>
     <string name="save_note">Save Note</string>
+    <string name="entry_title">Entry Title</string>
+    <string name="your_diary_entry">Your diary entry</string>
+    <string name="entry_saved">Entry saved</string>
 </resources>

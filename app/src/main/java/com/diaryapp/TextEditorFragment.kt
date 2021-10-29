@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -14,7 +15,7 @@ import java.time.format.DateTimeFormatter
 
 class TextEditorFragment : Fragment() {
 
-    //TODO Position the text boxes better and add prompts
+    //TODO Position the text boxes better
 
     private val dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy")
     private lateinit var noteTitle : EditText
@@ -48,7 +49,7 @@ class TextEditorFragment : Fragment() {
 
         // Bind the save button to the save note action
         saveButton.setOnClickListener {
-            addNewNote()
+            addNewNote(view)
         }
 
         return view
@@ -63,12 +64,16 @@ class TextEditorFragment : Fragment() {
     }
 
     // Save the note and return to the main screen
-    private fun addNewNote() {
+    private fun addNewNote(view: View) {
         if (isEntryValid()) {
             viewModel.addNewNote(
                 noteTitle.text.toString(),
                 noteContent.text.toString()
             )
+            Toast.makeText(
+                view.context, getString(R.string.entry_saved),
+                Toast.LENGTH_SHORT
+            ).show()
             activity?.finish()
         }
     }

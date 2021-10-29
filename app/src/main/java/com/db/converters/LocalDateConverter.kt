@@ -11,7 +11,7 @@ import java.time.ZoneId
 class LocalDateConverter {
     @TypeConverter
     fun fromTimestamp(value: Long?): LocalDate? {
-        return value?.let {  Instant.ofEpochMilli(value).atZone(ZoneId.systemDefault()).toLocalDate() }
+        return value?.let { Instant.ofEpochMilli(value).atZone(ZoneId.systemDefault()).toLocalDate() }
     }
 
     @TypeConverter
