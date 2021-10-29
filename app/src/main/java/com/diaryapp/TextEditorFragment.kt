@@ -20,6 +20,7 @@ class TextEditorFragment : Fragment() {
     private lateinit var noteTitle : EditText
     private lateinit var noteContent : EditText
 
+    // Store the view model
     private val viewModel: FragmentViewModel by activityViewModels{
         FragmentViewModelFactory(
             (activity?.application as DiaryApplication).database
@@ -53,6 +54,7 @@ class TextEditorFragment : Fragment() {
         return view
     }
 
+    // Check if none of the note fields are empty
     private fun isEntryValid(): Boolean {
         return viewModel.isEntryValid(
             noteTitle.text.toString(),
@@ -60,6 +62,7 @@ class TextEditorFragment : Fragment() {
         )
     }
 
+    // Save the note and return to the main screen
     private fun addNewNote() {
         if (isEntryValid()) {
             viewModel.addNewNote(

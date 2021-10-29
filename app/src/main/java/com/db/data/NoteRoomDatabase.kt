@@ -14,6 +14,7 @@ abstract class NoteRoomDatabase : RoomDatabase() {
 
     abstract fun noteDao(): NoteDao
 
+    // Makes sure that the database object is a singleton
     companion object {
         @Volatile
         private var INSTANCE: NoteRoomDatabase? = null

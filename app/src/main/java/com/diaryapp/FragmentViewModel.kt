@@ -14,6 +14,7 @@ import java.time.LocalDate
  */
 class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
 
+    // Current date for which the diary entry will be saved
     private val selectedDate = MutableLiveData<LocalDate>()
 
     fun setSelectedDate(message: LocalDate) {
@@ -24,12 +25,14 @@ class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
         return selectedDate
     }
 
+    // Insert a note into the database using a coroutine
     private fun insertNote(note : Note){
         viewModelScope.launch {
             noteDao.insert(note)
         }
     }
 
+    // Creates a new note with the given arguments
     private fun getNewNoteEntry(title: String, content: String, date: LocalDate): Note {
         return Note(
             title = title,
@@ -38,11 +41,13 @@ class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
         )
     }
 
+    // Create and save to the database the new note
     fun addNewNote(title: String, content: String) {
         val newNote = getNewNoteEntry(title, content, selectedDate.value!!)
         insertNote(newNote)
     }
 
+    // Check that none of the note fields are blank
     fun isEntryValid(title: String, content: String): Boolean {
         if (title.isBlank() || content.isBlank()) {
             return false
@@ -51,6 +56,9 @@ class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
     }
 }
 
+/**
+ * Constructor for the FragmentViewModel that passes it a reference to the noteDao
+ */
 class FragmentViewModelFactory(private val noteDao: NoteDao) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(FragmentViewModel::class.java)) {

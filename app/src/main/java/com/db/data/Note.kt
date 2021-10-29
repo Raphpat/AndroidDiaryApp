@@ -5,6 +5,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.time.LocalDate
 
+/**
+ * Note object to be saved in the database
+ */
 @Entity(tableName = "note")
 data class Note(
     @PrimaryKey(autoGenerate = true)

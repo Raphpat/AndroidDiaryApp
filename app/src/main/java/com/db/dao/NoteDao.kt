@@ -4,6 +4,9 @@ import androidx.room.*
 import com.db.data.Note
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Manages the apps calls to the database for Note obejcts
+ */
 @Dao
 interface NoteDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
