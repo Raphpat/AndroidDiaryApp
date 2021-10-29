@@ -3,11 +3,19 @@ package com.diaryapp
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class MainActivity : AppCompatActivity() {
+
+    private val viewModel: FragmentViewModel by viewModels{
+        FragmentViewModelFactory(
+            (this.application as DiaryApplication).database
+                .noteDao()
+        )
+    }
 
     //TODO List the diary entries
     override fun onCreate(savedInstanceState: Bundle?) {

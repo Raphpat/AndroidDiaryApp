@@ -15,8 +15,6 @@ import java.time.format.DateTimeFormatter
 
 class TextEditorFragment : Fragment() {
 
-    //TODO Position the text boxes better
-
     private val dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy")
     private lateinit var noteTitle : EditText
     private lateinit var noteContent : EditText
