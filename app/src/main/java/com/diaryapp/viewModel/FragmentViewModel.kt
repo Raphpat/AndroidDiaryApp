@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 import com.db.dao.NoteDao
 import com.db.data.Note
 import kotlinx.coroutines.launch
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 /**
  * Class that allows exchanging of information between fragments
@@ -12,13 +12,13 @@ import java.time.LocalDate
 class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
 
     // Current date for which the diary entry will be saved
-    private val selectedDate = MutableLiveData<LocalDate>()
+    private val selectedDate = MutableLiveData<LocalDateTime>()
 
-    fun setSelectedDate(message: LocalDate) {
+    fun setSelectedDate(message: LocalDateTime) {
         selectedDate.value = message
     }
 
-    fun getSelectedDate(): MutableLiveData<LocalDate> {
+    fun getSelectedDate(): MutableLiveData<LocalDateTime> {
         return selectedDate
     }
 
@@ -30,7 +30,7 @@ class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
     }
 
     // Creates a new note with the given arguments
-    private fun getNewNoteEntry(title: String, content: String, date: LocalDate): Note {
+    private fun getNewNoteEntry(title: String, content: String, date: LocalDateTime): Note {
         return Note(
             title = title,
             content = content,

@@ -11,7 +11,7 @@ import com.diaryapp.DiaryApplication
 import com.diaryapp.viewModel.FragmentViewModel
 import com.diaryapp.viewModel.FragmentViewModelFactory
 import com.diaryapp.R
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 class DatePickerFragment : Fragment() {
 
@@ -32,7 +32,7 @@ class DatePickerFragment : Fragment() {
         val datePicker = view.findViewById<DatePicker>(R.id.datePicker)
         // Add an event listener so that when it is changed the date in the TextEditorFragment is updated
         datePicker.setOnDateChangedListener { _, year, monthOfYear, dayOfMonth ->
-            val date = LocalDate.of(year, monthOfYear + 1, dayOfMonth)
+            val date = LocalDateTime.of(year, monthOfYear + 1, dayOfMonth, 1, 1)
             viewModel.setSelectedDate(date)
         }
         return view

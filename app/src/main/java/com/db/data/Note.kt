@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 /**
  * Note object to be saved in the database
@@ -17,5 +18,5 @@ data class Note(
     @ColumnInfo(name = "content")
     val content: String,
     @ColumnInfo(name = "date")
-    val date: LocalDate
+    val date: LocalDateTime
 )

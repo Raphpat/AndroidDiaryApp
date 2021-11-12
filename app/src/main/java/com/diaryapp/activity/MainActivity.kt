@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    val recyclerAdapter: RecyclerAdapter by lazy {
+    private val recyclerAdapter: RecyclerAdapter by lazy {
         RecyclerAdapter()
     }
 

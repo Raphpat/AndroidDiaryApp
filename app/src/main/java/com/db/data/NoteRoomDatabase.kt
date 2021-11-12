@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import com.db.converters.LocalDateConverter
 import com.db.dao.NoteDao
 
-@Database(entities = [Note::class], version = 1, exportSchema = false)
+@Database(entities = [Note::class], version = 2, exportSchema = false)
 @TypeConverters(LocalDateConverter::class)
 abstract class NoteRoomDatabase : RoomDatabase() {
 

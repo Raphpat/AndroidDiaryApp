@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.db.data.Note
 import com.diaryapp.R
+import java.time.format.DateTimeFormatter
 
 /**
  * Adapter that transforms Note objects into cards that display inside a RecycleView
@@ -22,13 +23,17 @@ class RecyclerAdapter :
      * (custom ViewHolder).
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+
         val titleView: TextView
+        val dateView: TextView
         val contentView: TextView
         val deleteButton: Button
 
         init {
             // Define click listener for the ViewHolder's View.
             titleView = view.findViewById(R.id.titleText)
+            dateView = view.findViewById(R.id.dateText)
             contentView = view.findViewById(R.id.contentText)
             deleteButton = view.findViewById(R.id.btnDelete)
         }
@@ -36,6 +41,7 @@ class RecyclerAdapter :
         fun bind(note: Note?) {
             if (note != null) {
                 titleView.text = note.title
+                dateView.text = dateFormat.format(note.date)
                 contentView.text = note.content
                 deleteButton.setOnClickListener { v ->
                     // TODO delete diary entry

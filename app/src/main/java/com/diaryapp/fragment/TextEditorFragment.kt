@@ -14,7 +14,7 @@ import com.diaryapp.viewModel.FragmentViewModel
 import com.diaryapp.viewModel.FragmentViewModelFactory
 import com.diaryapp.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class TextEditorFragment : Fragment() {
@@ -47,7 +47,7 @@ class TextEditorFragment : Fragment() {
         }
 
         // Set the date
-        viewModel.setSelectedDate(LocalDate.now())
+        viewModel.setSelectedDate(LocalDateTime.now())
 
         // Bind the save button to the save note action
         saveButton.setOnClickListener {

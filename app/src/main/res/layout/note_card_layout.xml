@@ -17,11 +17,26 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnDelete"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@tools:sample/lorem"
-                android:id="@+id/titleText"/>
+                android:id="@+id/titleText"
+                android:textSize="24sp"/>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:maxLines="3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnDelete"
+                app:layout_constraintTop_toBottomOf="@+id/titleText"
+                tools:text="@tools:sample/lorem/random"
+                android:id="@+id/dateText"
+                android:textSize="20sp"/>
 
         <TextView
                 android:layout_width="0dp"
@@ -32,24 +47,23 @@
                 android:maxLines="3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/titleText"
+                app:layout_constraintTop_toBottomOf="@+id/dateText"
                 tools:text="@tools:sample/lorem/random"
-                android:id="@+id/contentText"/>
+                android:id="@+id/contentText"
+                android:textSize="16sp"/>
 
         <Button
                 android:id="@+id/btnDelete"
-                style="@style/Base.Widget.AppCompat.Button.Colored"
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/delete"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/contentText"
-                tools:text="Delete"
-                android:background="@color/colorPrimary"/>
+                app:layout_constraintTop_toTopOf="parent"
+                android:backgroundTint="@color/colorPrimary"
+                android:drawableStart="@android:drawable/ic_menu_delete"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
