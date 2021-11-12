@@ -1,4 +1,4 @@
-package com.diaryapp
+package com.diaryapp.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,8 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.viewpager.widget.ViewPager
+import com.diaryapp.adapter.PagerAdapter
+import com.diaryapp.R
 import com.google.android.material.tabs.TabLayout
 
 

@@ -1,4 +1,4 @@
-package com.adapter
+package com.diaryapp.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +12,8 @@ import com.diaryapp.R
 /**
  * Adapter that transforms Note objects into cards that display inside a RecycleView
  */
-class CustomAdapter :
-    RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class RecyclerAdapter :
+    RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     private var dataSet = listOf<Note>()
 

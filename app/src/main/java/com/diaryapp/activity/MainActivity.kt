@@ -1,4 +1,4 @@
-package com.diaryapp
+package com.diaryapp.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,8 +7,11 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.adapter.CustomAdapter
-import com.db.data.Note
+import com.diaryapp.DiaryApplication
+import com.diaryapp.viewModel.FragmentViewModel
+import com.diaryapp.viewModel.FragmentViewModelFactory
+import com.diaryapp.R
+import com.diaryapp.adapter.RecyclerAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
@@ -21,8 +24,8 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    val customAdapter: CustomAdapter by lazy {
-        CustomAdapter()
+    val recyclerAdapter: RecyclerAdapter by lazy {
+        RecyclerAdapter()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,10 +40,10 @@ class MainActivity : AppCompatActivity() {
         val llm = LinearLayoutManager(this)
 
         recyclerView.layoutManager = llm
-        recyclerView.adapter = customAdapter
+        recyclerView.adapter = recyclerAdapter
         // Add a listener to the data in the database to update the cards on screen
         viewModel.getAllNotes().observe(this) { notes ->
-            customAdapter.setData(notes)
+            recyclerAdapter.setData(notes)
         }
     }
 

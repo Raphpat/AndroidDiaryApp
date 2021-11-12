@@ -1,4 +1,4 @@
-package com.diaryapp
+package com.diaryapp.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.diaryapp.DiaryApplication
+import com.diaryapp.viewModel.FragmentViewModel
+import com.diaryapp.viewModel.FragmentViewModelFactory
+import com.diaryapp.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter

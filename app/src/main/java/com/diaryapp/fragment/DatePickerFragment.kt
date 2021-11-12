@@ -1,4 +1,4 @@
-package com.diaryapp
+package com.diaryapp.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,10 @@ import android.view.ViewGroup
 import android.widget.DatePicker
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.diaryapp.DiaryApplication
+import com.diaryapp.viewModel.FragmentViewModel
+import com.diaryapp.viewModel.FragmentViewModelFactory
+import com.diaryapp.R
 import java.time.LocalDate
 
 class DatePickerFragment : Fragment() {

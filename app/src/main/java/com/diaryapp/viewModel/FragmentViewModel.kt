@@ -1,4 +1,4 @@
-package com.diaryapp
+package com.diaryapp.viewModel
 
 import androidx.lifecycle.*
 import com.db.dao.NoteDao
