@@ -1,8 +1,10 @@
-package com.diaryapp
+package com.diaryapp.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import com.diaryapp.fragment.DatePickerFragment
+import com.diaryapp.fragment.TextEditorFragment
 
 internal class PagerAdapter(
     fragmentManager: FragmentManager?, private val mNumOfTabs:
