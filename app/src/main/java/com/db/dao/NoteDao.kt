@@ -1,5 +1,6 @@
 package com.db.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.db.data.Note
 import kotlinx.coroutines.flow.Flow
@@ -22,5 +23,5 @@ interface NoteDao {
     fun getItem(id: Int): Flow<Note>
 
     @Query("SELECT * from note ORDER BY date ASC")
-    fun getItems(): Flow<List<Note>>
+    fun getItems(): LiveData<List<Note>>
 }

@@ -1,9 +1,6 @@
 package com.diaryapp
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.db.dao.NoteDao
 import com.db.data.Note
 import kotlinx.coroutines.launch
@@ -21,12 +18,12 @@ class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
         selectedDate.value = message
     }
 
-    fun getSelectedDate() : MutableLiveData<LocalDate>{
+    fun getSelectedDate(): MutableLiveData<LocalDate> {
         return selectedDate
     }
 
     // Insert a note into the database using a coroutine
-    private fun insertNote(note : Note){
+    private fun insertNote(note: Note) {
         viewModelScope.launch {
             noteDao.insert(note)
         }
@@ -53,6 +50,16 @@ class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
             return false
         }
         return true
+    }
+
+    fun getAllNotes(): LiveData<List<Note>> {
+        return noteDao.getItems()
+    }
+
+    fun deleteNote(note:Note){
+        viewModelScope.launch {
+            noteDao.delete(note)
+        }
     }
 }
 
