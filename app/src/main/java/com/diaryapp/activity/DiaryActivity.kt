@@ -3,19 +3,32 @@ package com.diaryapp.activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.get
 import androidx.viewpager.widget.ViewPager
+import com.diaryapp.DiaryApplication
 import com.diaryapp.adapter.PagerAdapter
 import com.diaryapp.R
+import com.diaryapp.viewModel.FragmentViewModel
+import com.diaryapp.viewModel.FragmentViewModelFactory
 import com.google.android.material.tabs.TabLayout
 
 
 class DiaryActivity: AppCompatActivity() {
 
+    private val viewModel: FragmentViewModel by viewModels {
+        FragmentViewModelFactory(
+            (this.application as DiaryApplication).database
+                .noteDao()
+        )
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diary)
+
+        val idToLoad = intent.getIntExtra("ID", -1)
 
         // Do toolbar things
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
@@ -44,6 +57,14 @@ class DiaryActivity: AppCompatActivity() {
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
+
+        // If the activity is loading an existing entry, go to the 2nd tab automatically
+        if (idToLoad != -1) {
+            tabLayout.selectTab(tabLayout.getTabAt(1))
+            viewModel.loadNote(idToLoad)
+        } else {
+            viewModel.resetLoadedNote()
+        }
     }
 
     // Define what the back button does

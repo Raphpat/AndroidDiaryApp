@@ -16,7 +16,7 @@ import java.time.LocalDateTime
 class DatePickerFragment : Fragment() {
 
     // Store the view model
-    private val viewModel: FragmentViewModel by activityViewModels{
+    private val viewModel: FragmentViewModel by activityViewModels {
         FragmentViewModelFactory(
             (activity?.application as DiaryApplication).database
                 .noteDao()
@@ -35,6 +35,15 @@ class DatePickerFragment : Fragment() {
             val date = LocalDateTime.of(year, monthOfYear + 1, dayOfMonth, 1, 1)
             viewModel.setSelectedDate(date)
         }
+
+        viewModel.getLoadedNote().observe(this) { note ->
+            if (note != null) {
+                datePicker.updateDate(note.date.year, note.date.monthValue - 1, note.date.dayOfMonth)
+            } else {
+                viewModel.setSelectedDate(LocalDateTime.now())
+            }
+        }
+
         return view
     }
 }

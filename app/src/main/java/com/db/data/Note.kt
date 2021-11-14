@@ -14,9 +14,9 @@ data class Note(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     @ColumnInfo(name = "title")
-    val title: String,
+    var title: String,
     @ColumnInfo(name = "content")
-    val content: String,
+    var content: String,
     @ColumnInfo(name = "date")
-    val date: LocalDateTime
+    var date: LocalDateTime
 )

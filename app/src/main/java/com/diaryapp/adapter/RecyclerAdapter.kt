@@ -18,6 +18,7 @@ class RecyclerAdapter() :
 
     private var dataSet = listOf<Note>()
     private lateinit var onItemDeleteListener: OnItemDeleteListener
+    private lateinit var onItemClickedListener: OnItemClickedListener
 
     /**
      * Provide a reference to the type of views that you are using
@@ -46,12 +47,6 @@ class RecyclerAdapter() :
                 contentView.text = note.content
             }
         }
-
-        // TODO onclick open the diary entry, extra feature
-//        fun onClick(v: View) {
-//            val pos = adapterPosition
-//            Toast.makeText(v.context, dataSet.get(pos), Toast.LENGTH_LONG).show()
-//        }
     }
 
     // Create new views (invoked by the layout manager)
@@ -68,15 +63,19 @@ class RecyclerAdapter() :
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         viewHolder.bind(dataSet[position])
+        val position = viewHolder.adapterPosition
         // Adds event listener to delete the diary entry
         viewHolder.deleteButton.setOnClickListener { v ->
-            val position = viewHolder.getAdapterPosition()
             val note = dataSet[position]
             (dataSet as MutableList).remove(note)
             notifyItemRemoved(position)
             notifyItemRangeChanged(position, dataSet.size)
             // Call the custom delete interface that was created in main activity and delete the note in the room db
             onItemDeleteListener.onDeleteButtonClicked(note)
+        }
+        // Adds event listener to open a diary entry
+        viewHolder.itemView.setOnClickListener{
+            onItemClickedListener.onItemClick(dataSet[position].id)
         }
     }
 
@@ -88,15 +87,28 @@ class RecyclerAdapter() :
         notifyDataSetChanged()
     }
 
-    // A setter for the empty interface
+    // A setter for the empty delete interface
     fun setOnItemDeleteListener(l: OnItemDeleteListener) {
         onItemDeleteListener = l
     }
+
+    // A setter for the empty onClick interface
+    fun setOnItemClickedListener(l: OnItemClickedListener) {
+        onItemClickedListener = l
+    }
 }
 
+
 /**
- * Interface with an empty method to be overrided in the main activty
+ * Interface with an empty method to be overrided in the main activty for the delete button
  */
 interface OnItemDeleteListener {
     fun onDeleteButtonClicked(note: Note)
+}
+
+/**
+ * Interface with an empty method to be overrided in the main activty for the whole note
+ */
+interface OnItemClickedListener {
+    fun onItemClick(noteId: Int)
 }

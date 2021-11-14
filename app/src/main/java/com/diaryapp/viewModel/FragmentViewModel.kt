@@ -3,6 +3,7 @@ package com.diaryapp.viewModel
 import androidx.lifecycle.*
 import com.db.dao.NoteDao
 import com.db.data.Note
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
@@ -13,6 +14,7 @@ class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
 
     // Current date for which the diary entry will be saved
     private val selectedDate = MutableLiveData<LocalDateTime>()
+    private val loadedNote = MutableLiveData<Note>()
 
     fun setSelectedDate(message: LocalDateTime) {
         selectedDate.value = message
@@ -20,6 +22,10 @@ class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
 
     fun getSelectedDate(): MutableLiveData<LocalDateTime> {
         return selectedDate
+    }
+
+    fun getLoadedNote(): MutableLiveData<Note> {
+        return loadedNote
     }
 
     // Insert a note into the database using a coroutine
@@ -56,10 +62,31 @@ class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
         return noteDao.getItems().asLiveData()
     }
 
-    fun deleteNote(note:Note){
+    fun deleteNote(note: Note) {
         viewModelScope.launch {
             noteDao.delete(note)
         }
+    }
+
+    fun updateNote(note: Note) {
+        note.date = selectedDate.value!!
+        viewModelScope.launch {
+            noteDao.update(note)
+        }
+        resetLoadedNote()
+    }
+
+    fun loadNote(id: Int) {
+        val note = noteDao.getItem(id)
+        viewModelScope.launch {
+            note.collect {
+                loadedNote.value = it
+            }
+        }
+    }
+
+    fun resetLoadedNote(){
+        loadedNote.value = null
     }
 }
 

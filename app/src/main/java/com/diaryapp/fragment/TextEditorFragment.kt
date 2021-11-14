@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.db.data.Note
 import com.diaryapp.DiaryApplication
 import com.diaryapp.viewModel.FragmentViewModel
 import com.diaryapp.viewModel.FragmentViewModelFactory
@@ -20,11 +21,11 @@ import java.time.format.DateTimeFormatter
 class TextEditorFragment : Fragment() {
 
     private val dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-    private lateinit var noteTitle : EditText
-    private lateinit var noteContent : EditText
+    private lateinit var noteTitle: EditText
+    private lateinit var noteContent: EditText
 
     // Store the view model
-    private val viewModel: FragmentViewModel by activityViewModels{
+    private val viewModel: FragmentViewModel by activityViewModels {
         FragmentViewModelFactory(
             (activity?.application as DiaryApplication).database
                 .noteDao()
@@ -46,12 +47,20 @@ class TextEditorFragment : Fragment() {
             dateReminder.text = dateFormat.format(date)
         }
 
-        // Set the date
-        viewModel.setSelectedDate(LocalDateTime.now())
+        // Observer for loading an existing diary entry
+        viewModel.getLoadedNote().observe(this) { note ->
+            if (note != null) {
+                noteTitle.setText(note.title)
+                noteContent.setText(note.content)
+            } else {
+                noteTitle.setText("")
+                noteContent.setText("")
+            }
+        }
 
         // Bind the save button to the save note action
         saveButton.setOnClickListener {
-            addNewNote(view)
+            addNewOrUpdateNote(view)
         }
 
         return view
@@ -66,12 +75,19 @@ class TextEditorFragment : Fragment() {
     }
 
     // Save the note and return to the main screen
-    private fun addNewNote(view: View) {
+    private fun addNewOrUpdateNote(view: View) {
         if (isEntryValid()) {
-            viewModel.addNewNote(
-                noteTitle.text.toString(),
-                noteContent.text.toString()
-            )
+            if (viewModel.getLoadedNote().value != null) {
+                val loadedNote = viewModel.getLoadedNote().value
+                loadedNote!!.title = noteTitle.text.toString()
+                loadedNote!!.content = noteContent.text.toString()
+                viewModel.updateNote(loadedNote!!)
+            } else {
+                viewModel.addNewNote(
+                    noteTitle.text.toString(),
+                    noteContent.text.toString()
+                )
+            }
             Toast.makeText(
                 view.context, getString(R.string.entry_saved),
                 Toast.LENGTH_SHORT
