@@ -2,6 +2,9 @@ package com.diaryapp.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +18,10 @@ import com.diaryapp.adapter.OnItemClickedListener
 import com.diaryapp.adapter.OnItemDeleteListener
 import com.diaryapp.adapter.RecyclerAdapter
 import com.diaryapp.viewModel.FragmentViewModel
+import com.diaryapp.viewModel.FragmentViewModel.Companion.DATE_ASC
+import com.diaryapp.viewModel.FragmentViewModel.Companion.DATE_DESC
+import com.diaryapp.viewModel.FragmentViewModel.Companion.TITLE_ASC
+import com.diaryapp.viewModel.FragmentViewModel.Companion.TITLE_DESC
 import com.diaryapp.viewModel.FragmentViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -37,8 +44,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Do toolbar things
-//        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-//        setSupportActionBar(toolbar)
+        val toolbar = findViewById<Toolbar>(R.id.toolbar_main)
+        setSupportActionBar(toolbar)
 
         val addDiaryEntry = findViewById<FloatingActionButton>(R.id.addNote)
         addDiaryEntry.setOnClickListener { onClick(null) }
@@ -46,7 +53,6 @@ class MainActivity : AppCompatActivity() {
         // RecycleView to contain the list of entries
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         val llm = LinearLayoutManager(this)
-
         recyclerView.layoutManager = llm
         recyclerView.adapter = recyclerAdapter
         // Set the method that deletes the diary entries from the database here
@@ -61,12 +67,40 @@ class MainActivity : AppCompatActivity() {
                 val i = Intent(applicationContext, DiaryActivity::class.java)
                 i.putExtra("ID", noteId)
                 startActivity(i)
-                // TODO Not yet implemented, send intent to next activity and set date and everything
             }
         })
         // Add a listener to the data in the database to update the cards on screen
         viewModel.getAllNotes().observe(this) { notes ->
             recyclerAdapter.setData(notes)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.filter, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.dateDesc -> {
+                viewModel.setSelectedSort(DATE_DESC)
+                true
+            }
+            R.id.dateAsc -> {
+                viewModel.setSelectedSort(DATE_ASC)
+                true
+            }
+            R.id.titleDesc -> {
+                viewModel.setSelectedSort(TITLE_DESC)
+                true
+            }
+            R.id.titleAsc -> {
+                viewModel.setSelectedSort(TITLE_ASC)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

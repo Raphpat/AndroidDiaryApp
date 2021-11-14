@@ -14,7 +14,13 @@ class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
 
     // Current date for which the diary entry will be saved
     private val selectedDate = MutableLiveData<LocalDateTime>()
+
+    // Current note being loaded
     private val loadedNote = MutableLiveData<Note>()
+
+    // Type of sorts for the diary entries
+    private val sorts = arrayOf("dateDesc", "dateAsc", "titleDesc", "titleAsc")
+    private var selectedSort = sorts[DATE_DESC]
 
     fun setSelectedDate(message: LocalDateTime) {
         selectedDate.value = message
@@ -26,6 +32,11 @@ class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
 
     fun getLoadedNote(): MutableLiveData<Note> {
         return loadedNote
+    }
+
+    fun setSelectedSort(index: Int) {
+        selectedSort = sorts[2]
+        getAllNotes()
     }
 
     // Insert a note into the database using a coroutine
@@ -59,7 +70,14 @@ class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
     }
 
     fun getAllNotes(): LiveData<List<Note>> {
-        return noteDao.getItems().asLiveData()
+        return when (selectedSort) {
+            sorts[1] -> noteDao.getItemsByDateDesc().asLiveData()
+            sorts[2] -> noteDao.getItemsByTitleAsc().asLiveData()
+            sorts[3] -> noteDao.getItemsByTitleDesc().asLiveData()
+            else -> {
+                noteDao.getItemsByDateAsc().asLiveData()
+            }
+        }
     }
 
     fun deleteNote(note: Note) {
@@ -85,8 +103,15 @@ class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
         }
     }
 
-    fun resetLoadedNote(){
+    fun resetLoadedNote() {
         loadedNote.value = null
+    }
+
+    companion object {
+        const val DATE_ASC = 0
+        const val DATE_DESC = 1
+        const val TITLE_ASC = 2
+        const val TITLE_DESC = 3
     }
 }
 

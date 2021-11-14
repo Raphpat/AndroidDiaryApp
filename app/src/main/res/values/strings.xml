@@ -9,4 +9,9 @@
     <string name="your_diary_entry">Your diary entry</string>
     <string name="entry_saved">Entry saved</string>
     <string name="delete">Delete</string>
+    <string name="sort">Sort</string>
+    <string name="date_ascending">Date ascending</string>
+    <string name="date_descending">Date descending</string>
+    <string name="title_ascending">Title ascending</string>
+    <string name="title_descending">Title descending</string>
 </resources>

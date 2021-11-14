@@ -6,7 +6,6 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.get
 import androidx.viewpager.widget.ViewPager
 import com.diaryapp.DiaryApplication
 import com.diaryapp.adapter.PagerAdapter
@@ -24,6 +23,7 @@ class DiaryActivity: AppCompatActivity() {
                 .noteDao()
         )
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diary)
@@ -31,7 +31,7 @@ class DiaryActivity: AppCompatActivity() {
         val idToLoad = intent.getIntExtra("ID", -1)
 
         // Do toolbar things
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        val toolbar = findViewById<Toolbar>(R.id.toolbar_diary)
         setSupportActionBar(toolbar)
         // Add the back button to the toolbar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
