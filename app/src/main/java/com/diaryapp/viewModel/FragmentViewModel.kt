@@ -53,7 +53,7 @@ class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
     }
 
     fun getAllNotes(): LiveData<List<Note>> {
-        return noteDao.getItems()
+        return noteDao.getItems().asLiveData()
     }
 
     fun deleteNote(note:Note){

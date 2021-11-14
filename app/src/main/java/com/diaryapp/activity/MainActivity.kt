@@ -7,11 +7,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.db.data.Note
 import com.diaryapp.DiaryApplication
+import com.diaryapp.R
+import com.diaryapp.adapter.OnItemDeleteListener
+import com.diaryapp.adapter.RecyclerAdapter
 import com.diaryapp.viewModel.FragmentViewModel
 import com.diaryapp.viewModel.FragmentViewModelFactory
-import com.diaryapp.R
-import com.diaryapp.adapter.RecyclerAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
@@ -41,6 +43,12 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = llm
         recyclerView.adapter = recyclerAdapter
+        // Set the method that deletes the diary entries from the database here
+        recyclerAdapter.setOnItemDeleteListener(object : OnItemDeleteListener {
+            override fun onDeleteButtonClicked(note: Note) {
+                viewModel.deleteNote(note)
+            }
+        })
         // Add a listener to the data in the database to update the cards on screen
         viewModel.getAllNotes().observe(this) { notes ->
             recyclerAdapter.setData(notes)
@@ -52,7 +60,6 @@ class MainActivity : AppCompatActivity() {
         val i = Intent(applicationContext, DiaryActivity::class.java)
         startActivity(i)
     }
-
 
 }
 

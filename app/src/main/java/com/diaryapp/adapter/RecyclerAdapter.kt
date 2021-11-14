@@ -13,10 +13,11 @@ import java.time.format.DateTimeFormatter
 /**
  * Adapter that transforms Note objects into cards that display inside a RecycleView
  */
-class RecyclerAdapter :
+class RecyclerAdapter() :
     RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     private var dataSet = listOf<Note>()
+    private lateinit var onItemDeleteListener: OnItemDeleteListener
 
     /**
      * Provide a reference to the type of views that you are using
@@ -43,13 +44,10 @@ class RecyclerAdapter :
                 titleView.text = note.title
                 dateView.text = dateFormat.format(note.date)
                 contentView.text = note.content
-                deleteButton.setOnClickListener { v ->
-                    // TODO delete diary entry
-                }
             }
         }
 
-        // TODO onclick open the diary entry
+        // TODO onclick open the diary entry, extra feature
 //        fun onClick(v: View) {
 //            val pos = adapterPosition
 //            Toast.makeText(v.context, dataSet.get(pos), Toast.LENGTH_LONG).show()
@@ -70,6 +68,16 @@ class RecyclerAdapter :
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         viewHolder.bind(dataSet[position])
+        // Adds event listener to delete the diary entry
+        viewHolder.deleteButton.setOnClickListener { v ->
+            val position = viewHolder.getAdapterPosition()
+            val note = dataSet[position]
+            (dataSet as MutableList).remove(note)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, dataSet.size)
+            // Call the custom delete interface that was created in main activity and delete the note in the room db
+            onItemDeleteListener.onDeleteButtonClicked(note)
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -80,4 +88,15 @@ class RecyclerAdapter :
         notifyDataSetChanged()
     }
 
+    // A setter for the empty interface
+    fun setOnItemDeleteListener(l: OnItemDeleteListener) {
+        onItemDeleteListener = l
+    }
+}
+
+/**
+ * Interface with an empty method to be overrided in the main activty
+ */
+interface OnItemDeleteListener {
+    fun onDeleteButtonClicked(note: Note)
 }
