@@ -19,8 +19,8 @@ class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
     private val loadedNote = MutableLiveData<Note>()
 
     // Type of sorts for the diary entries
-    private val sorts = arrayOf("dateDesc", "dateAsc", "titleDesc", "titleAsc")
-    private var selectedSort = sorts[DATE_DESC]
+    private val sorts = arrayOf("dateAsc", "dateDesc", "titleAsc", "titleDesc")
+    private var selectedSort = sorts[DATE_ASC]
 
     fun setSelectedDate(message: LocalDateTime) {
         selectedDate.value = message
@@ -35,8 +35,7 @@ class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
     }
 
     fun setSelectedSort(index: Int) {
-        selectedSort = sorts[2]
-        getAllNotes()
+        selectedSort = sorts[index]
     }
 
     // Insert a note into the database using a coroutine
@@ -70,6 +69,7 @@ class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
     }
 
     fun getAllNotes(): LiveData<List<Note>> {
+        // Returns the data ordered differently depending on the selected sort
         return when (selectedSort) {
             sorts[1] -> noteDao.getItemsByDateDesc().asLiveData()
             sorts[2] -> noteDao.getItemsByTitleAsc().asLiveData()
