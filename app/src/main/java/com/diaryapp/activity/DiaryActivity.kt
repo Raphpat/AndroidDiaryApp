@@ -14,7 +14,6 @@ import com.diaryapp.viewModel.FragmentViewModel
 import com.diaryapp.viewModel.FragmentViewModelFactory
 import com.google.android.material.tabs.TabLayout
 
-
 class DiaryActivity: AppCompatActivity() {
 
     private val viewModel: FragmentViewModel by viewModels {

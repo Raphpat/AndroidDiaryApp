@@ -1,6 +1,5 @@
 package com.diaryapp.viewModel
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.db.dao.NoteDao
 import com.db.data.Note

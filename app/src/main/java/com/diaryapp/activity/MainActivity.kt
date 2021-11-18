@@ -18,7 +18,6 @@ import com.diaryapp.viewModel.FragmentViewModel
 import com.diaryapp.viewModel.FragmentViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-
 class MainActivity : AppCompatActivity() {
 
     private val viewModel: FragmentViewModel by viewModels {
