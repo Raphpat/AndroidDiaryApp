@@ -1,5 +1,6 @@
 package com.diaryapp.viewModel
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.db.dao.NoteDao
 import com.db.data.Note
@@ -18,9 +19,15 @@ class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
     // Current note being loaded
     private val loadedNote = MutableLiveData<Note>()
 
-    // Type of sorts for the diary entries
-    private val sorts = arrayOf("dateAsc", "dateDesc", "titleAsc", "titleDesc")
-    private var selectedSort = sorts[DATE_ASC]
+//    private var selectedSort = MutableLiveData<Int>()
+
+//    fun setSelectedSort(selected: Int) {
+//        selectedSort.value = selected
+//    }
+//
+//    fun getSelectedSort(): MutableLiveData<Int> {
+//        return selectedSort
+//    }
 
     fun setSelectedDate(message: LocalDateTime) {
         selectedDate.value = message
@@ -32,10 +39,6 @@ class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
 
     fun getLoadedNote(): MutableLiveData<Note> {
         return loadedNote
-    }
-
-    fun setSelectedSort(index: Int) {
-        selectedSort = sorts[index]
     }
 
     // Insert a note into the database using a coroutine
@@ -68,13 +71,18 @@ class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
         return true
     }
 
-    fun getAllNotes(): LiveData<List<Note>> {
-        // Returns the data ordered differently depending on the selected sort
+    fun getAllNotes(selectedSort: Int): LiveData<List<Note>> {
+
         return when (selectedSort) {
-            sorts[1] -> noteDao.getItemsByDateDesc().asLiveData()
-            sorts[2] -> noteDao.getItemsByTitleAsc().asLiveData()
-            sorts[3] -> noteDao.getItemsByTitleDesc().asLiveData()
+//            DATE_DESC -> noteDao.getItemsByDateDesc().asLiveData()
+//            TITLE_ASC -> noteDao.getItemsByTitleAsc().asLiveData()
+//            TITLE_DESC -> noteDao.getItemsByTitleDesc().asLiveData()
+            1 -> {
+                Log.w("VIEW MODEL", "Sorting by 1, date_desc")
+                noteDao.getItemsByDateDesc().asLiveData()
+            }
             else -> {
+                Log.w("VIEW MODEL", "Sorting by default, date_asc")
                 noteDao.getItemsByDateAsc().asLiveData()
             }
         }
