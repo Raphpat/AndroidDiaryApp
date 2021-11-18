@@ -79,5 +79,4 @@ class DiaryActivity: AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
 }

@@ -19,16 +19,6 @@ class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
     // Current note being loaded
     private val loadedNote = MutableLiveData<Note>()
 
-//    private var selectedSort = MutableLiveData<Int>()
-
-//    fun setSelectedSort(selected: Int) {
-//        selectedSort.value = selected
-//    }
-//
-//    fun getSelectedSort(): MutableLiveData<Int> {
-//        return selectedSort
-//    }
-
     fun setSelectedDate(message: LocalDateTime) {
         selectedDate.value = message
     }
@@ -71,21 +61,8 @@ class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
         return true
     }
 
-    fun getAllNotes(selectedSort: Int): LiveData<List<Note>> {
-
-        return when (selectedSort) {
-//            DATE_DESC -> noteDao.getItemsByDateDesc().asLiveData()
-//            TITLE_ASC -> noteDao.getItemsByTitleAsc().asLiveData()
-//            TITLE_DESC -> noteDao.getItemsByTitleDesc().asLiveData()
-            1 -> {
-                Log.w("VIEW MODEL", "Sorting by 1, date_desc")
-                noteDao.getItemsByDateDesc().asLiveData()
-            }
-            else -> {
-                Log.w("VIEW MODEL", "Sorting by default, date_asc")
-                noteDao.getItemsByDateAsc().asLiveData()
-            }
-        }
+    fun getAllNotes(): LiveData<List<Note>> {
+        return noteDao.getItemsByDateAsc().asLiveData()
     }
 
     fun deleteNote(note: Note) {
@@ -113,13 +90,6 @@ class FragmentViewModel(private val noteDao: NoteDao) : ViewModel() {
 
     fun resetLoadedNote() {
         loadedNote.value = null
-    }
-
-    companion object {
-        const val DATE_ASC = 0
-        const val DATE_DESC = 1
-        const val TITLE_ASC = 2
-        const val TITLE_DESC = 3
     }
 }
 
